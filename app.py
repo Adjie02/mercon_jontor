@@ -49,22 +49,6 @@ st.pyplot(fig)
 st.subheader("Data Tabel")
 st.dataframe(filtered_data)
 
-# Judul aplikasi
-st.title('Data Statistik BPS')
-
-# Meng-upload file Excel
-uploaded_file = st.file_uploader("Pend_Jawabarat.xlsx", type="xlsx")
-if uploaded_file is not None:
-    # Membaca file Excel dengan pandas
-    df_Pend_JawaBarat = pd.read_excel('Pend_JawaBarat.xlsx')
-    
-    # Menampilkan data
-    st.write(df)
-
-    # Menampilkan informasi dataset
-    st.write(f"Jumlah baris: {df.shape[0]}")
-    st.write(f"Jumlah kolom: {df.shape[1]}")
-
 st.write("## Analisis")
 st.write("Buat analisis sederhana dari visualisasi data yang muncul di bagian sebelumnya.")
 
