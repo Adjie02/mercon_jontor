@@ -9,7 +9,7 @@ st.title("Kelompok Mercon Jontor")
 st.write("# Tugas Kelompok Mercon Jontor")
 
 st.write("## Pendahuluan")
-st.write("Tuliskan di bagian ini latar belakang data apa yang dipilih, mengapa kelompok memilih data ini, dsb.")
+st.write("Sejak berlakunya Undang-Undang RI Nomor 23 Tahun 2014 tentang Pemerintahan Daerah, Indonesia menerapkan otonomi daerah yang memberikan keleluasaan bagi daerah untuk mengelola potensi lokal sebagai sumber pendapatan. Kebijakan ini bertujuan meningkatkan kesejahteraan masyarakat dan mengurangi ketimpangan antarwilayah. Pendapatan utama daerah berasal dari Pendapatan Asli Daerah (PAD), seperti pajak, retribusi, dan hasil pengelolaan kekayaan daerah. Namun, kontribusi PAD di Provinsi Jawa Barat masih rendah, sehingga bergantung pada dana transfer pemerintah pusat untuk pembiayaan pembangunan. Jawa Barat, dengan populasi terbesar di Indonesia mencapai 49.935.858   jiwa (BPS, 2020), memiliki potensi besar meningkatkan pendapatannya. Meski demikian, tingginya populasi juga meningkatkan pengeluaran pemerintah untuk pembangunan dan pelayanan publik. Karakteristik kota dan kabupaten di Jawa Barat beragam, mulai dari kota dengan dominasi sektor industri dan perdagangan hingga kabupaten yang bergantung pada sektor pertanian. Analisis pendapatan daerah penting untuk mengidentifikasi potensi dan tantangan fiskal sekaligus memberikan rekomendasi guna mendukung pembangunan berkelanjutan di seluruh wilayah Jawa Barat.")
 
 st.write("## Deskripsi Data")
 st.write("Tuliskan di bagian ini deskripsi tentang data yang digunakan.")
