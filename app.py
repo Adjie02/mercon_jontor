@@ -33,21 +33,6 @@ selected_cities = st.sidebar.multiselect(
     default=data.index[:5]
 )
 
-# Filter data based on selection
-filtered_data = data.loc[selected_cities]
-
-# Main area: Display line chart
-st.subheader("Pendapatan Per Tahun")
-fig, ax = plt.subplots()
-filtered_data.T.plot(ax=ax)
-ax.set_title("Pendapatan Kabupaten/Kota (2016-2019)")
-ax.set_ylabel("Pendapatan (Ribu Rupiah)")
-ax.set_xlabel("Tahun")
-st.pyplot(fig)
-
-# Display data table
-st.subheader("Data Tabel")
-st.dataframe(filtered_data)
 
 st.write("## Analisis")
 st.write("Buat analisis sederhana dari visualisasi data yang muncul di bagian sebelumnya.")
