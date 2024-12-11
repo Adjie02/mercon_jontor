@@ -3,7 +3,6 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
-
 st.title("Kelompok Mercon Jontor")
 
 st.write("# Tugas Kelompok Mercon Jontor")
@@ -14,57 +13,74 @@ st.write("Tuliskan di bagian ini latar belakang data apa yang dipilih, mengapa k
 st.write("## Deskripsi Data")
 st.write("Tuliskan di bagian ini deskripsi tentang data yang digunakan.")
 
-st.write("## Visualisasi")
-st.write("Buat visualisasi yang menurut kelompok kalian perlu ditampilkan.")
-st.write("Gunakan juga elemen-elemen interaktif `streamlit`.")
-# Load the data
+st.write("## Visualisasi Pendapatan Kabupaten/Kota di Jawa Barat")
+st.write("Berikut Bentuk Visualisasi Berdasarkan Pendapatan Kabupaten/Kota di Provinsi Jawa Barat")
+
 data_path = "Pend_JawaBarat.xlsx.csv"
 data = pd.read_csv(data_path, delimiter=';', skiprows=2)
 data = data.rename(columns={"Unnamed: 0": "Kabupaten/Kota"})
 data.set_index("Kabupaten/Kota", inplace=True)
 
-# Title
-st.title("Visualisasi Pendapatan Kabupaten/Kota di Jawa Barat")
+kamus_ticker = {
+    'Bogor' : 'Kabupaten Bogor',
+    'Sukabumi' : 'Kabupaten Sukabumi',
+    'Cianjur' : 'Kabupaten Cianjur',
+    'Bandung' : 'Kabupaten Bandung',
+    'Garut' : 'Kabupaten Garut',
+    'Tasikmalaya' : 'Kabupaten Tasikmalaya',
+    'Ciamis' : 'Kabupaten Ciamis',
+    'Kuningan' : 'Kabupaten Kuningan'
+}
 
-# Sidebar for user selection
-selected_cities = st.sidebar.multiselect(
-    "Pilih Kabupaten/Kota untuk Visualisasi",
-    options=data.index,
-    default=data.index[:5]
+selected_kota = st.multiselect(
+    'Silahkan Pilih Kabupaten/Kota yang akan ditampilkan:',
+    options=kamus_ticker.keys(),
+    default=['Bandung', 'Bogor']  # Menggunakan nama yang sesuai dengan kamus_ticker
 )
 
-# Filter data based on selection
-filtered_data = data.loc[selected_cities]
+# Pilih periode (tahun) yang diinginkan
+selected_tahun = st.multiselect(
+    'Silahkan Pilih Tahun yang akan ditampilkan:',
+    options=[str(year) for year in range(2016, 2020)],  # Menambahkan tahun dalam format string
+    default=['2016', '2017', '2018', '2019']
+)
 
-# Main area: Display line chart
-st.subheader("Pendapatan Per Tahun")
-fig, ax = plt.subplots()
-filtered_data.T.plot(ax=ax)
-ax.set_title("Pendapatan Kabupaten/Kota (2016-2019)")
-ax.set_ylabel("Pendapatan (Ribu Rupiah)")
-ax.set_xlabel("Tahun")
-st.pyplot(fig)
+# Filter data berdasarkan kabupaten/kota dan tahun yang dipilih
+if selected_kota and selected_tahun:
+    # Memastikan bahwa kabupaten/kota yang dipilih ada dalam data index
+    valid_kota = [kota for kota in selected_kota if kota in data.index]
+ 
+    # Memastikan bahwa tahun yang dipilih ada dalam kolom data
+    valid_tahun = [tahun for tahun in selected_tahun if tahun in data.columns]
 
-# Display data table
-st.subheader("Data Tabel")
-st.dataframe(filtered_data)
+    if valid_kota and valid_tahun:
+        filtered_data = data.loc[valid_kota, valid_tahun]
+        
+        # Debugging: menampilkan data yang telah difilter
+        st.write("Tabel Data Pendapatan:")
+        st.write(filtered_data)
 
-# Judul aplikasi
-st.title('Data Statistik BPS')
+        # Visualisasi data dengan Plotly
+        st.write("#Visualisasi Pendapatan Kabupaten/Kota di Jawa Barat:")
+        grafik = px.line(
+            filtered_data.T,  # Transpose agar tahun menjadi sumbu x
+            title="Pendapatan Kabupaten/Kota di Jawa Barat (2016-2019)",
+            labels={'value': 'Pendapatan (Juta Rupiah)', 'index': 'Tahun'},
+            markers=True,
+            color_discrete_sequence=px.colors.qualitative.Set1  # Menambahkan variasi warna
+        )
 
-# Meng-upload file Excel
-uploaded_file = st.file_uploader("Pend_Jawabarat.xlsx", type="xlsx")
-if uploaded_file is not None:
-    # Membaca file Excel dengan pandas
-    df_Pend_JawaBarat = pd.read_excel('Pend_JawaBarat.xlsx')
+        grafik.update_layout(
+            xaxis_title="Tahun",
+            yaxis_title="Pendapatan (Juta Rupiah)",
+            legend_title="Kabupaten/Kota"
+        )
+        st.plotly_chart(grafik)
+    else:
+        st.write("Kabupaten/Kota atau Tahun yang dipilih tidak valid.")
+else:
+    st.write("Silahkan pilih minimal satu kabupaten/kota dan satu tahun untuk visualisasi.")
     
-    # Menampilkan data
-    st.write(df)
-
-    # Menampilkan informasi dataset
-    st.write(f"Jumlah baris: {df.shape[0]}")
-    st.write(f"Jumlah kolom: {df.shape[1]}")
-
 st.write("## Analisis")
 st.write("Buat analisis sederhana dari visualisasi data yang muncul di bagian sebelumnya.")
 
