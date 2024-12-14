@@ -82,14 +82,3 @@ st.write("## Referensi / Daftar Pustaka")
 st.write("Tuliskan di bagian ini referensi yang digunakan dalam proyek kelompok ini, misalnya sumber data, makalah ilmiah, dsb.")
 
 
-<<<<<<< HEAD
-#Zahra
-
-
-#Sukma
-
-
-#Rendi
-n
-=======
->>>>>>> 800a206efe8551696ed33b1abb1818d49f4f7f77
