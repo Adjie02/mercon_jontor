@@ -68,10 +68,12 @@ if uploaded_file is not None:
 
 
 st.write("## Analisis")
+
 st.write("Berdasarkan data yang tersedia, total nilai untuk Provinsi Jawa Barat mengalami tren peningkatan dari tahun 2016 hingga 2019. Pada tahun 2016, total nilai tercatat sebesar 17,042,895,113, dan meningkat signifikan menjadi 19,759,789,101 pada tahun 2019. Peningkatan ini mencerminkan pertumbuhan yang stabil di berbagai kabupaten/kota di Jawa Barat.")
 st.write("Kabupaten/Kota dengan nilai tertinggi selama periode tersebut adalah Kota Bandung dan Kota Bekasi. Pada tahun 2019, Kota Bekasi mencatatkan nilai tertinggi sebesar 3,273,595,338, mengungguli Kota Bandung yang mendominasi pada tahun-tahun sebelumnya dengan nilai tertinggi sebesar 2,578,457,421 di tahun 2017. Kota Bekasi menunjukkan peningkatan yang luar biasa dari tahun 2016 (1,686,600,487) hingga 2019, menandakan percepatan pembangunan atau kontribusi ekonomi yang signifikan.")
 st.write("Di sisi lain, Kota Banjar secara konsisten memiliki nilai terendah dibandingkan kabupaten/kota lainnya, dengan nilai sebesar 116,321,781 pada tahun 2016 dan hanya sedikit meningkat menjadi 131,881,763 pada tahun 2019. Peningkatan ini relatif kecil dibandingkan wilayah lain, menunjukkan tantangan dalam pertumbuhan ekonomi atau faktor lain yang memengaruhi nilai tersebut.")
 st.write("Secara keseluruhan, data ini menggambarkan adanya kesenjangan antara kabupaten/kota di Jawa Barat, dengan beberapa wilayah seperti Kota Bekasi dan Kota Bandung menunjukkan kontribusi yang dominan, sementara wilayah lainnya, seperti Kota Banjar, masih membutuhkan perhatian lebih untuk mendukung pertumbuhannya.")
+
 
 st.write("## Kesimpulan")
 st.write("Tuliskan butir-butir kesimpulan dari analisis.")
