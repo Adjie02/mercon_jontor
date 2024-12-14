@@ -98,9 +98,14 @@ st.write("Berdasarkan data yang tersedia, total nilai untuk Provinsi Jawa Barat 
 
 
 st.write("## Kesimpulan")
-st.write("Tuliskan butir-butir kesimpulan dari analisis.")
+st.write('''Sejak diberlakukannya Undang-Undang RI Nomor 23 Tahun 2014 tentang Pemerintahan Daerah, otonomi daerah memberikan kewenangan bagi setiap daerah untuk mengelola potensi lokal sebagai sumber pendapatan guna meningkatkan kesejahteraan masyarakat dan mengurangi ketimpangan antarwilayah. Namun, kontribusi Pendapatan Asli Daerah (PAD) di Provinsi Jawa Barat masih rendah, sehingga ketergantungan pada dana transfer pemerintah pusat masih tinggi.
+
+Provinsi Jawa Barat, dengan populasi terbesar di Indonesia, memiliki potensi besar untuk meningkatkan pendapatan daerah melalui pengelolaan potensi ekonomi yang beragam. Tren peningkatan pendapatan di Jawa Barat dari tahun 2016 hingga 2019 menunjukkan pertumbuhan yang stabil, dengan nilai meningkat dari Rp17,04 triliun pada 2016 menjadi Rp19,76 triliun pada 2019. Kota Bekasi dan Kota Bandung mendominasi kontribusi ekonomi, dengan Kota Bekasi mencatatkan nilai tertinggi pada 2019 sebesar Rp3,27 triliun. Di sisi lain, Kota Banjar konsisten menjadi wilayah dengan nilai terendah, hanya meningkat dari Rp116,32 miliar pada 2016 menjadi Rp131,88 miliar pada 2019.
+
+Kesenjangan ekonomi antarwilayah di Jawa Barat masih menjadi tantangan, dengan beberapa kota/kabupaten menunjukkan kontribusi ekonomi yang dominan, sementara wilayah lainnya membutuhkan perhatian lebih. Analisis ini menekankan pentingnya optimalisasi potensi lokal dan perencanaan strategis guna mendorong pertumbuhan ekonomi yang merata dan berkelanjutan di seluruh Jawa Barat.''')
 
 st.write("## Referensi / Daftar Pustaka")
-st.write("Tuliskan di bagian ini referensi yang digunakan dalam proyek kelompok ini, misalnya sumber data, makalah ilmiah, dsb.")
+st.write("Badan Pusat Statistik Provinsi Jawa Barat. (2019). Pendapatan Pemerintah Kabupaten/Kota (Ribu Rupiah), 2018-2019. Diakses dari https://jabar.bps.go.id")
+st.write ("Pratiwi, Y. E., & Hutajulu, D. M. (2022). Analisis Pendapatan Asli Daerah Provinsi Jawa Barat dengan Penerapan Error Correction Model. Ekonomi dan Bisnis: Berkala Publikasi, Gagasan Konseptual, Hasil Penelitian, Kajian, dan Terapan Teori. Universitas Tidar.")
 
 
