@@ -3,7 +3,6 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 
-
 st.title("Kelompok Mercon Jontor")
 
 st.write("# Tugas Kelompok Mercon Jontor")
@@ -14,65 +13,88 @@ st.write("Sejak berlakunya Undang-Undang RI Nomor 23 Tahun 2014 tentang Pemerint
 st.write("## Deskripsi Data")
 st.write("Tuliskan di bagian ini deskripsi tentang data yang digunakan.")
 
-st.write("## Visualisasi")
-st.write("Buat visualisasi yang menurut kelompok kalian perlu ditampilkan.")
-st.write("Gunakan juga elemen-elemen interaktif `streamlit`.")
-# Load the data
+st.write("## Visualisasi Pendapatan Kabupaten/Kota di Jawa Barat")
+st.write("Berikut Bentuk Visualisasi Berdasarkan Pendapatan Kabupaten/Kota di Provinsi Jawa Barat")
+
 data_path = "Pend_JawaBarat.xlsx.csv"
 data = pd.read_csv(data_path, delimiter=';', skiprows=2)
 data = data.rename(columns={"Unnamed: 0": "Kabupaten/Kota"})
 data.set_index("Kabupaten/Kota", inplace=True)
 
-# Title
-st.title("Visualisasi Pendapatan Kabupaten/Kota di Jawa Barat")
+kamus_ticker = {
+    'Bogor' : 'Kabupaten Bogor',
+    'Sukabumi' : 'Kabupaten Sukabumi',
+    'Cianjur' : 'Kabupaten Cianjur',
+    'Bandung' : 'Kabupaten Bandung',
+    'Garut' : 'Kabupaten Garut',
+    'Tasikmalaya' : 'Kabupaten Tasikmalaya',
+    'Ciamis' : 'Kabupaten Ciamis',
+    'Kuningan' : 'Kabupaten Kuningan',
+    'Cirebon' : 'Kabupaten Cirebon',
+    'Majalengka' : 'Kabupaten Majalengka',
+    'Sumedang' : 'Kabupaten Sumedang', 
+    'Indramayu' : 'Kabupaten Indramayu',
+    'Subang' : 'Kabupaten Subang',
+    'Purwakarta' : 'Kabupaten Purwakarta',
+    'Karawang' : 'Kabupateb Karawang',
+    'Bekasi' : 'Kabupaten Bekasi',
+    'Bandung Barat' : 'Kabupaten Bandung Barat',
+    'Pangandaran' : 'Kabupaten Pangandaran',
+    'Kota Bogor' : 'Kota Bogor',
+    'Kota Sukabumi' : 'Kota Sukabumi',
+    'Kota Bandung' : 'Kota Bandung',
+    'Kota Cirebon' : 'Kota Cirebon',
+    'Kota Bekasi' : 'Kota Bekasi',
+    'Kota Depok' : 'Kota Depok',
+    'Kota Cimahi' : 'Kota Cimahi',
+    'Kota Tasimalaya' : 'Kota Tasikmalaya',
+    'Kota Banjar' : 'Kota Banjar'
+}
 
-
-# Sidebar for user selection
-selected_cities = st.sidebar.multiselect(
-    "Pilih Kabupaten/Kota untuk Visualisasi",
-    options=data.index,
-    default=data.index[:5]
+selected_kota = st.multiselect(
+    'Silahkan Pilih Kabupaten/Kota yang akan ditampilkan:',
+    options=kamus_ticker.keys(),
+    default=['Bandung', 'Bogor'] 
 )
 
-# Filter data based on selection
-filtered_data = data.loc[selected_cities]
+selected_tahun = st.multiselect(
+    'Silahkan Pilih Tahun yang akan ditampilkan:',
+    options=[str(year) for year in range(2016, 2020)],  # Menambahkan tahun dalam format string
+    default=['2016', '2017', '2018', '2019']
+)
 
-# Main area: Display line chart
-st.subheader("Pendapatan Per Tahun")
-fig, ax = plt.subplots()
-filtered_data.T.plot(ax=ax)
-ax.set_title("Pendapatan Kabupaten/Kota (2016-2019)")
-ax.set_ylabel("Pendapatan (Ribu Rupiah)")
-ax.set_xlabel("Tahun")
-st.pyplot(fig)
+if selected_kota and selected_tahun:
+    valid_kota = [kota for kota in selected_kota if kota in data.index]
+ 
+    valid_tahun = [tahun for tahun in selected_tahun if tahun in data.columns]
 
-# Display data table
-st.subheader("Data Tabel")
-st.dataframe(filtered_data)
+    if valid_kota and valid_tahun:
+        filtered_data = data.loc[valid_kota, valid_tahun]
+        
+        st.write("Tabel Data Pendapatan:")
+        st.write(filtered_data)
 
-# Judul aplikasi
-st.title('Data Statistik BPS')
+        grafik = px.line(
+            filtered_data.T,  
+            title="Visualisasi Pendapatan Kabupaten/Kota",
+            labels={'value': 'Pendapatan (Juta Rupiah)', 'index': 'Tahun'},
+            markers=True,
+            color_discrete_sequence=px.colors.qualitative.Set1  
+        )
 
-# Meng-upload file Excel
-uploaded_file = st.file_uploader("Pend_Jawabarat.xlsx", type="xlsx")
-if uploaded_file is not None:
-    # Membaca file Excel dengan pandas
-    df_Pend_JawaBarat = pd.read_excel('Pend_JawaBarat.xlsx')
+        grafik.update_layout(
+            xaxis_title="Tahun",
+            yaxis_title="Pendapatan (Juta Rupiah)",
+            legend_title="Kabupaten/Kota"
+        )
+        st.plotly_chart(grafik)
+    else:
+        st.write("Kabupaten/Kota atau Tahun yang dipilih tidak valid.")
+else:
+    st.write("Silahkan pilih minimal satu kabupaten/kota dan satu tahun untuk visualisasi.")
     
-    # Menampilkan data
-    st.write(df)
-
-    # Menampilkan informasi dataset
-    st.write(f"Jumlah baris: {df.shape[0]}")
-    st.write(f"Jumlah kolom: {df.shape[1]}")
-
-
 st.write("## Analisis")
-
-st.write("Berdasarkan data yang tersedia, total nilai untuk Provinsi Jawa Barat mengalami tren peningkatan dari tahun 2016 hingga 2019. Pada tahun 2016, total nilai tercatat sebesar 17,042,895,113, dan meningkat signifikan menjadi 19,759,789,101 pada tahun 2019. Peningkatan ini mencerminkan pertumbuhan yang stabil di berbagai kabupaten/kota di Jawa Barat.")
-st.write("Kabupaten/Kota dengan nilai tertinggi selama periode tersebut adalah Kota Bandung dan Kota Bekasi. Pada tahun 2019, Kota Bekasi mencatatkan nilai tertinggi sebesar 3,273,595,338, mengungguli Kota Bandung yang mendominasi pada tahun-tahun sebelumnya dengan nilai tertinggi sebesar 2,578,457,421 di tahun 2017. Kota Bekasi menunjukkan peningkatan yang luar biasa dari tahun 2016 (1,686,600,487) hingga 2019, menandakan percepatan pembangunan atau kontribusi ekonomi yang signifikan.")
-st.write("Di sisi lain, Kota Banjar secara konsisten memiliki nilai terendah dibandingkan kabupaten/kota lainnya, dengan nilai sebesar 116,321,781 pada tahun 2016 dan hanya sedikit meningkat menjadi 131,881,763 pada tahun 2019. Peningkatan ini relatif kecil dibandingkan wilayah lain, menunjukkan tantangan dalam pertumbuhan ekonomi atau faktor lain yang memengaruhi nilai tersebut.")
-st.write("Secara keseluruhan, data ini menggambarkan adanya kesenjangan antara kabupaten/kota di Jawa Barat, dengan beberapa wilayah seperti Kota Bekasi dan Kota Bandung menunjukkan kontribusi yang dominan, sementara wilayah lainnya, seperti Kota Banjar, masih membutuhkan perhatian lebih untuk mendukung pertumbuhannya.")
+st.write("Berdasarkan data yang tersedia, total nilai untuk Provinsi Jawa Barat mengalami tren peningkatan dari tahun 2016 hingga 2019. Pada tahun 2016, total nilai tercatat sebesar 17,042,895,113, dan meningkat signifikan menjadi 19,759,789,101 pada tahun 2019. Peningkatan ini mencerminkan pertumbuhan yang stabil di berbagai kabupaten/kota di Jawa Barat. Kabupaten/Kota dengan nilai tertinggi selama periode tersebut adalah Kota Bandung dan Kota Bekasi. Pada tahun 2019, Kota Bekasi mencatatkan nilai tertinggi sebesar 3,273,595,338, mengungguli Kota Bandung yang mendominasi pada tahun-tahun sebelumnya dengan nilai tertinggi sebesar 2,578,457,421 di tahun 2017. Kota Bekasi menunjukkan peningkatan yang luar biasa dari tahun 2016 (1,686,600,487) hingga 2019, menandakan percepatan pembangunan atau kontribusi ekonomi yang signifikan. Di sisi lain, Kota Banjar secara konsisten memiliki nilai terendah dibandingkan kabupaten/kota lainnya, dengan nilai sebesar 116,321,781 pada tahun 2016 dan hanya sedikit meningkat menjadi 131,881,763 pada tahun 2019. Peningkatan ini relatif kecil dibandingkan wilayah lain, menunjukkan tantangan dalam pertumbuhan ekonomi atau faktor lain yang memengaruhi nilai tersebut. Secara keseluruhan, data ini menggambarkan adanya kesenjangan antara kabupaten/kota di Jawa Barat, dengan beberapa wilayah seperti Kota Bekasi dan Kota Bandung menunjukkan kontribusi yang dominan, sementara wilayah lainnya, seperti Kota Banjar, masih membutuhkan perhatian lebih untuk mendukung pertumbuhannya.")
 
 
 st.write("## Kesimpulan")
