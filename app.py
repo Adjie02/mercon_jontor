@@ -26,6 +26,47 @@ data.set_index("Kabupaten/Kota", inplace=True)
 # Title
 st.title("Visualisasi Pendapatan Kabupaten/Kota di Jawa Barat")
 
+
+# Sidebar for user selection
+selected_cities = st.sidebar.multiselect(
+    "Pilih Kabupaten/Kota untuk Visualisasi",
+    options=data.index,
+    default=data.index[:5]
+)
+
+# Filter data based on selection
+filtered_data = data.loc[selected_cities]
+
+# Main area: Display line chart
+st.subheader("Pendapatan Per Tahun")
+fig, ax = plt.subplots()
+filtered_data.T.plot(ax=ax)
+ax.set_title("Pendapatan Kabupaten/Kota (2016-2019)")
+ax.set_ylabel("Pendapatan (Ribu Rupiah)")
+ax.set_xlabel("Tahun")
+st.pyplot(fig)
+
+# Display data table
+st.subheader("Data Tabel")
+st.dataframe(filtered_data)
+
+# Judul aplikasi
+st.title('Data Statistik BPS')
+
+# Meng-upload file Excel
+uploaded_file = st.file_uploader("Pend_Jawabarat.xlsx", type="xlsx")
+if uploaded_file is not None:
+    # Membaca file Excel dengan pandas
+    df_Pend_JawaBarat = pd.read_excel('Pend_JawaBarat.xlsx')
+    
+    # Menampilkan data
+    st.write(df)
+
+    # Menampilkan informasi dataset
+    st.write(f"Jumlah baris: {df.shape[0]}")
+    st.write(f"Jumlah kolom: {df.shape[1]}")
+
+
 st.write("## Analisis")
 st.write("Berdasarkan data yang tersedia, total nilai untuk Provinsi Jawa Barat mengalami tren peningkatan dari tahun 2016 hingga 2019. Pada tahun 2016, total nilai tercatat sebesar 17,042,895,113, dan meningkat signifikan menjadi 19,759,789,101 pada tahun 2019. Peningkatan ini mencerminkan pertumbuhan yang stabil di berbagai kabupaten/kota di Jawa Barat.")
 st.write("Kabupaten/Kota dengan nilai tertinggi selama periode tersebut adalah Kota Bandung dan Kota Bekasi. Pada tahun 2019, Kota Bekasi mencatatkan nilai tertinggi sebesar 3,273,595,338, mengungguli Kota Bandung yang mendominasi pada tahun-tahun sebelumnya dengan nilai tertinggi sebesar 2,578,457,421 di tahun 2017. Kota Bekasi menunjukkan peningkatan yang luar biasa dari tahun 2016 (1,686,600,487) hingga 2019, menandakan percepatan pembangunan atau kontribusi ekonomi yang signifikan.")
